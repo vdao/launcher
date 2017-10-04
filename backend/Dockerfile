@@ -2,6 +2,7 @@ FROM alpine:3.6
 
 EXPOSE 3031
 VOLUME /usr/src/app/public
+VOLUME /usr/src/app/conf
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache \
@@ -11,10 +12,8 @@ RUN apk add --no-cache \
 
 COPY . .
 RUN rm -rf public/*
+RUN rm -rf conf/*
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-CMD [ "uwsgi", "--socket", "0.0.0.0:3031", \
-               "--plugins", "python3", \
-               "--protocol", "uwsgi", \
-               "--wsgi", "public.main:application" ]
+CMD [ "uwsgi", "conf/uwsgi.ini"]

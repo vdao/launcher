@@ -7,6 +7,7 @@ services:
       context: backend
     volumes:
       - ./backend/public:/usr/src/app/public
+      - ./backend/conf:/usr/src/app/conf
 
   frontend:
     image: nginx:1.13-alpine
